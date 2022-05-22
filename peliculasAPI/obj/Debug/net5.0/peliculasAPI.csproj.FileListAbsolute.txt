@@ -54,3 +54,10 @@ F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\refint\peliculasAPI.dl
 F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.pdb
 F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.genruntimeconfig.cache
 F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\ref\peliculasAPI.dll
+D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll

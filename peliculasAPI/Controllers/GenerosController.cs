@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using peliculasAPI.Entidades;
+using peliculasAPI.Filtros;
 using peliculasAPI.Repositorios;
 using System;
 using System.Collections.Generic;
@@ -11,6 +14,7 @@ namespace peliculasAPI.Controllers
 {
     [Route("api/generos")]
     [ApiController]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class GenerosController: ControllerBase
     {
         private readonly IRepositorio repositorio;
@@ -29,6 +33,8 @@ namespace peliculasAPI.Controllers
         [HttpGet] // api/generos
         [HttpGet("listado")] // api/generos/listado
         [HttpGet("/listadogeneros")] // /listadogeneros ignora api/generos
+        //[ResponseCache(Duration =60)] //Aplicación de filtro a la acción
+        [ServiceFilter(typeof(MiFiltroDeAccion))]
         public ActionResult<List<Genero>> Get()
         {
             logger.LogInformation("Vamos a mostrar los géneros");
@@ -59,6 +65,7 @@ namespace peliculasAPI.Controllers
             var genero =  await repositorio.ObtenerPorId(Id);
             if (genero == null)
             {
+                throw new ApplicationException($"El género de ID {Id} no fue encontrado");
                 logger.LogWarning($"No pudimos encontrar el género de id {Id}");
                 return NotFound();
             }
