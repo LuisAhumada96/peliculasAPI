@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
 using peliculasAPI.Entidades;
 using peliculasAPI.Repositorios;
 using System;
@@ -14,17 +15,23 @@ namespace peliculasAPI.Controllers
     {
         private readonly IRepositorio repositorio;
         private readonly WeatherForecastController weatherForecastController;
+        private readonly ILogger<GenerosController> logger;
 
-        public GenerosController(IRepositorio repositorio, WeatherForecastController weatherForecastController)
+        public GenerosController(IRepositorio repositorio, 
+            WeatherForecastController weatherForecastController,
+            ILogger<GenerosController> logger)
+            
         {
             this.repositorio = repositorio;
             this.weatherForecastController = weatherForecastController;
+            this.logger = logger;
         }
         [HttpGet] // api/generos
         [HttpGet("listado")] // api/generos/listado
         [HttpGet("/listadogeneros")] // /listadogeneros ignora api/generos
         public ActionResult<List<Genero>> Get()
         {
+            logger.LogInformation("Vamos a mostrar los géneros");
             return repositorio.ObtenerTodosLosGeneros();
         }
         [HttpGet("guid")] // api/generos/guid
@@ -42,6 +49,7 @@ namespace peliculasAPI.Controllers
         [HttpGet("{Id:int}")]
         public async Task<ActionResult<Genero>> Get(int Id, [FromHeader] string nombre) //api/generos/ejemplo
         {
+            logger.LogDebug($"Obteniendo un género por el id {Id}");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -51,6 +59,7 @@ namespace peliculasAPI.Controllers
             var genero =  await repositorio.ObtenerPorId(Id);
             if (genero == null)
             {
+                logger.LogWarning($"No pudimos encontrar el género de id {Id}");
                 return NotFound();
             }
 
