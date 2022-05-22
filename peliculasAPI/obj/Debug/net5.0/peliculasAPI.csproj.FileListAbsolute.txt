@@ -26,3 +26,31 @@ D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\obj\Debug\net5
 D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\obj\Debug\net5.0\peliculasAPI.pdb
 D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\obj\Debug\net5.0\peliculasAPI.genruntimeconfig.cache
 D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\obj\Debug\net5.0\ref\peliculasAPI.dll
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\appsettings.json
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\appsettings.Development.json
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\peliculasAPI.exe
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\peliculasAPI.deps.json
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\peliculasAPI.runtimeconfig.json
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\peliculasAPI.runtimeconfig.dev.json
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\peliculasAPI.dll
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\peliculasAPI.pdb
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\Microsoft.OpenApi.dll
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+F:\Luis\curso\asp-net-curso\peliculasAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.csproj.AssemblyReference.cache
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.GeneratedMSBuildEditorConfig.editorconfig
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.AssemblyInfoInputs.cache
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.AssemblyInfo.cs
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.csproj.CoreCompileInputs.cache
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.MvcApplicationPartsAssemblyInfo.cs
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.MvcApplicationPartsAssemblyInfo.cache
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\scopedcss\bundle\peliculasAPI.styles.css
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\staticwebassets\peliculasAPI.StaticWebAssets.Manifest.cache
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.RazorTargetAssemblyInfo.cache
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.csproj.CopyComplete
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.dll
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\refint\peliculasAPI.dll
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.pdb
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\peliculasAPI.genruntimeconfig.cache
+F:\Luis\curso\asp-net-curso\peliculasAPI\obj\Debug\net5.0\ref\peliculasAPI.dll
