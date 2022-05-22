@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using peliculasAPI.Entidades;
 using peliculasAPI.Repositorios;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,10 +13,12 @@ namespace peliculasAPI.Controllers
     public class GenerosController: ControllerBase
     {
         private readonly IRepositorio repositorio;
+        private readonly WeatherForecastController weatherForecastController;
 
-        public GenerosController(IRepositorio repositorio)
+        public GenerosController(IRepositorio repositorio, WeatherForecastController weatherForecastController)
         {
             this.repositorio = repositorio;
+            this.weatherForecastController = weatherForecastController;
         }
         [HttpGet] // api/generos
         [HttpGet("listado")] // api/generos/listado
@@ -24,6 +27,15 @@ namespace peliculasAPI.Controllers
         {
             return repositorio.ObtenerTodosLosGeneros();
         }
+        [HttpGet("guid")] // api/generos/guid
+        public ActionResult<Guid> GetGUID()
+        {
+            
+            return Ok( new { GUID_GenerosController = repositorio.ObtenerGUID(),
+                GUID_WeatherForecastController = weatherForecastController.ObtenerGUIDWeatherForecastController() });
+        }
+
+
 
         //[HttpGet("ejemplo")]
         //[HttpGet("{Id:int}/{nombre=Roberto}")] //Variables de ruta: api/generos/{Id}
@@ -49,6 +61,7 @@ namespace peliculasAPI.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] Genero genero)
         {
+            repositorio.CrearGenero(genero);
             return NoContent();  
         }
         [HttpPut]

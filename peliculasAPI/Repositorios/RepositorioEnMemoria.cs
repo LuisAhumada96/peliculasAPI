@@ -17,7 +17,9 @@ namespace peliculasAPI.Repositorios
                 new Genero(){Id =1, Nombre = "Comedia"},
                 new Genero(){Id =2, Nombre = "Acción"}
             };
+            _guid = Guid.NewGuid();
         }
+        public Guid _guid;
         public List<Genero> ObtenerTodosLosGeneros()
         {
             return _generos;
@@ -26,6 +28,15 @@ namespace peliculasAPI.Repositorios
         {
             await Task.Delay(TimeSpan.FromSeconds(3));
             return _generos.FirstOrDefault(x => x.Id == Id);
+        }
+        public Guid ObtenerGUID()
+        {
+            return _guid;
+        }
+        public void CrearGenero(Genero genero)
+        {
+            genero.Id = _generos.Count() + 1;
+            _generos.Add(genero);
         }
     }
 }
