@@ -8,8 +8,10 @@ using Microsoft.Extensions.Logging;
 using peliculasAPI.DTOs;
 using peliculasAPI.Entidades;
 using peliculasAPI.Filtros;
+using peliculasAPI.Utilidades;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace peliculasAPI.Controllers
@@ -34,9 +36,11 @@ namespace peliculasAPI.Controllers
             this.mapper = mapper;
         }
         [HttpGet] // api/generos
-        public async Task<ActionResult<List<GeneroDTO>>> Get()
+        public async Task<ActionResult<List<GeneroDTO>>> Get([FromQuery] PaginacionDTO paginacionDTO)
         {
-            var generos = await context.Generos.ToListAsync();
+            var queryable = context.Generos.AsQueryable();
+            await HttpContext.InsertarParametrosPaginacionEnCabecera(queryable);
+            var generos = await queryable.OrderBy(x => x.Nombre).Paginar(paginacionDTO).ToListAsync();
             return mapper.Map<List<GeneroDTO>>(generos);
         }
 
