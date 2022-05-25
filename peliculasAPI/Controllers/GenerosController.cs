@@ -49,7 +49,12 @@ namespace peliculasAPI.Controllers
         [HttpGet("{Id:int}")]
         public async Task<ActionResult<Genero>> Get(int Id) //api/generos/ejemplo
         {
-            throw new NotImplementedException();
+            var genero = await context.Generos.FirstOrDefaultAsync(x => x.Id == Id);
+            if (genero == null)
+            {
+                return NotFound();
+            }
+            return mapper.Map<Genero>(genero);
         }
 
 
@@ -61,15 +66,29 @@ namespace peliculasAPI.Controllers
             await context.SaveChangesAsync();
             return NoContent();
         }
-        [HttpPut]
-        public ActionResult Put()
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, [FromBody] GeneroCreacionDTO generoCreacionDTO)
         {
-            throw new NotImplementedException();
+            var genero = await context.Generos.FirstOrDefaultAsync(x => x.Id == id);
+            if (genero == null)
+            {
+                return NotFound();
+            }
+            genero = mapper.Map(generoCreacionDTO, genero);
+            await context.SaveChangesAsync();
+            return NoContent();
         }
-        [HttpDelete]
-        public ActionResult Delete()
+        [HttpDelete("{Id:int}")]
+        public async Task<ActionResult> Delete(int id)
         {
-            throw new NotImplementedException();
+            var existe = await context.Generos.AnyAsync(x => x.Id == id);
+            if (!existe)
+            {
+                return NotFound();
+            }
+            context.Remove(new Genero() { Id = id });
+            await context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }
