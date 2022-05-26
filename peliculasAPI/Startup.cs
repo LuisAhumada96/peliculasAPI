@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,9 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using peliculasAPI.ApiBehavior;
 using peliculasAPI.Controllers;
 using peliculasAPI.Filtros;
+using peliculasAPI.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,19 +37,26 @@ namespace peliculasAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
-            services.AddControllers(options =>
-            {
-                options.Filters.Add(typeof(FiltroDeExcepcion));
-                options.Filters.Add(typeof(ParsearBadRequests));
-            }).ConfigureApiBehaviorOptions(BehaviorBadRequests.Parsear);
+           services.AddAutoMapper(typeof(Startup));
+            services.AddSingleton(provider =>
+            
+                new MapperConfiguration(Configuration =>
+                {
+                    var geometryFactory = provider.GetRequiredService<GeometryFactory>();
+                    Configuration.AddProfile(new AutoMapperProfiles(geometryFactory));
+                }).CreateMapper());
+            services.AddSingleton<GeometryFactory>(NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326));
 
 
-            services.AddAutoMapper(typeof(Startup));
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
 
+            services.AddTransient<IAlmacenadorArchivos, AlmacenadorAzureStorage>(); 
+            
+           services.AddDbContext<ApplicationDbContext>(options =>
+           options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"),
+           sqlServer => sqlServer.UseNetTopologySuite()));
+
+           
             //Habilitación de aplicaciones
             services.AddCors(options =>
             {
@@ -56,6 +67,18 @@ namespace peliculasAPI
                     .WithExposedHeaders(new string[] { "cantidadTotalRegistros" });
                 });
             });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(FiltroDeExcepcion));
+                options.Filters.Add(typeof(ParsearBadRequests));
+            }).ConfigureApiBehaviorOptions(BehaviorBadRequests.Parsear);
+
+
+            
+
+           
 
             services.AddSwaggerGen(c =>
             {
