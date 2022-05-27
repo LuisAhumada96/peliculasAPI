@@ -102,3 +102,4 @@ D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5
 D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5.0\NetTopologySuite.dll
 D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5.0\NetTopologySuite.IO.SqlServerBytes.dll
 D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\obj\Debug\net5.0\EFCoreSqlServerNetTopologySuite.cs
+D:\Luis\Universidad\Cursos\Asp.Net Core\peliculasAPI\peliculasAPI\bin\Debug\net5.0\Newtonsoft.Json.dll
