@@ -29,7 +29,7 @@ namespace peliculasAPI.Utilidades
                 .ForMember(x => x.Poster, opciones => opciones.Ignore())
                 .ForMember(x => x.PeliculasGeneros, opciones => opciones.MapFrom(MapearPeliculasGeneros))
                 .ForMember(x => x.PeliculasCines, opciones => opciones.MapFrom(MapearPeliculasCines))
-                .ForMember(x => x.PeliculasCines, opciones => opciones.MapFrom(MapearPeliculasActores));
+                .ForMember(x => x.PeliculasActores, opciones => opciones.MapFrom(MapearPeliculasActores));
 
 
         }
