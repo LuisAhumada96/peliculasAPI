@@ -56,7 +56,12 @@ namespace peliculasAPI.Controllers
             }
             return mapper.Map<Genero>(genero);
         }
-
+        [HttpGet("todos")]
+        public async Task<ActionResult<List<GeneroDTO>>> Todos()
+        {
+            var generos = await context.Generos.ToListAsync();
+            return mapper.Map<List<GeneroDTO>>(generos);
+        }
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Genero generoCreacionDTO)
