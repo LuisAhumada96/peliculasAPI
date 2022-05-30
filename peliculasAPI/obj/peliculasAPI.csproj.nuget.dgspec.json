@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Luis\\Universidad\\Cursos\\Asp.Net Core\\peliculasAPI\\peliculasAPI\\peliculasAPI.csproj": {}
+    "F:\\Luis\\curso\\asp-net-curso\\peliculasAPI\\peliculasAPI.csproj": {}
   },
   "projects": {
-    "D:\\Luis\\Universidad\\Cursos\\Asp.Net Core\\peliculasAPI\\peliculasAPI\\peliculasAPI.csproj": {
+    "F:\\Luis\\curso\\asp-net-curso\\peliculasAPI\\peliculasAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Luis\\Universidad\\Cursos\\Asp.Net Core\\peliculasAPI\\peliculasAPI\\peliculasAPI.csproj",
+        "projectUniqueName": "F:\\Luis\\curso\\asp-net-curso\\peliculasAPI\\peliculasAPI.csproj",
         "projectName": "peliculasAPI",
-        "projectPath": "D:\\Luis\\Universidad\\Cursos\\Asp.Net Core\\peliculasAPI\\peliculasAPI\\peliculasAPI.csproj",
-        "packagesPath": "C:\\Users\\luisa\\.nuget\\packages\\",
-        "outputPath": "D:\\Luis\\Universidad\\Cursos\\Asp.Net Core\\peliculasAPI\\peliculasAPI\\obj\\",
+        "projectPath": "F:\\Luis\\curso\\asp-net-curso\\peliculasAPI\\peliculasAPI.csproj",
+        "packagesPath": "C:\\Users\\javie\\.nuget\\packages\\",
+        "outputPath": "F:\\Luis\\curso\\asp-net-curso\\peliculasAPI\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\luisa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\javie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -53,6 +49,10 @@
               "version": "[12.12.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.17, )"
             },
@@ -97,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
