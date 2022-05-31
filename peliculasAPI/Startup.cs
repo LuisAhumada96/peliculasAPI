@@ -84,7 +84,8 @@ namespace peliculasAPI
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(Configuration["llavejwt"]))
+                            Encoding.UTF8.GetBytes(Configuration["llavejwt"])),
+                        ClockSkew = TimeSpan.Zero
                     });
             services.AddControllers(options =>
             {
