@@ -1,11 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using peliculasAPI.DTOs;
+using peliculasAPI.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +25,47 @@ namespace peliculasAPI.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly IConfiguration configuration;
+        private readonly ApplicationDbContext context;
+        private readonly IMapper mapper;
 
         public CuentasController(UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ApplicationDbContext context,
+            IMapper mapper)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.configuration = configuration;
+            this.context = context;
+            this.mapper = mapper;
+        }
+
+        [HttpGet("listadoUsuarios")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
+        public async Task<ActionResult<List<UsuarioDTO>>> ListadoUsuarios([FromQuery] PaginacionDTO paginacionDTO)
+        {
+            var queryable = context.Users.AsQueryable();
+            await HttpContext.InsertarParametrosPaginacionEnCabecera(queryable);
+            var usuarios = await queryable.OrderBy(x => x.Email).Paginar(paginacionDTO).ToListAsync();
+            return mapper.Map<List<UsuarioDTO>>(usuarios);
+        }
+
+        [HttpPost("HacerAdmin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
+        public async Task<ActionResult> HacerAdmin(string usuarioId)
+        {
+            var usuario = await userManager.FindByIdAsync(usuarioId);
+            await userManager.AddClaimAsync(usuario, new Claim("role", "admin"));
+            return NoContent();
+        }
+        [HttpPost("RemoverAdmin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
+        public async Task<ActionResult> RemoverAdmin([FromBody] string usuarioId)
+        {
+            var usuario = await userManager.FindByIdAsync(usuarioId);
+            await userManager.RemoveClaimAsync(usuario, new Claim("role", "admin"));
+            return NoContent();
         }
 
         [HttpPost("crear")]
@@ -88,7 +127,7 @@ namespace peliculasAPI.Controllers
             return new RespuestaAutenticacion()
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
-                Expiraciom = expiracion
+                Expiracion = expiracion
             };
         }
     }

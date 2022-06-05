@@ -18,7 +18,7 @@ namespace peliculasAPI.Controllers
 {
     [Route("api/generos")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
     public class GenerosController: ControllerBase
     {
         private readonly ILogger<GenerosController> logger;
@@ -57,6 +57,7 @@ namespace peliculasAPI.Controllers
             return mapper.Map<Genero>(genero);
         }
         [HttpGet("todos")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<GeneroDTO>>> Todos()
         {
             var generos = await context.Generos.OrderBy(x => x.Nombre).ToListAsync();

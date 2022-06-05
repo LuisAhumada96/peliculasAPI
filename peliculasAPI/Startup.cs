@@ -21,6 +21,7 @@ using peliculasAPI.Filtros;
 using peliculasAPI.Utilidades;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,7 @@ namespace peliculasAPI
     {
         public Startup(IConfiguration configuration)
         {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             Configuration = configuration;
         }
 
@@ -40,27 +42,26 @@ namespace peliculasAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddSingleton(provider =>
-            
-                new MapperConfiguration(Configuration =>
+                new MapperConfiguration(config =>
                 {
                     var geometryFactory = provider.GetRequiredService<GeometryFactory>();
-                    Configuration.AddProfile(new AutoMapperProfiles(geometryFactory));
+                    config.AddProfile(new AutoMapperProfiles(geometryFactory));
                 }).CreateMapper());
+
             services.AddSingleton<GeometryFactory>(NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326));
 
 
+            services.AddTransient<IAlmacenadorArchivos, AlmacenadorAzureStorage>();
 
+            services.AddHttpContextAccessor();
 
-            services.AddTransient<IAlmacenadorArchivos, AlmacenadorAzureStorage>(); 
-            
-           services.AddDbContext<ApplicationDbContext>(options =>
-           options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"),
-           sqlServer => sqlServer.UseNetTopologySuite()));
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"),
+            sqlServer => sqlServer.UseNetTopologySuite()));
 
-           
-            //Habilitación de aplicaciones
             services.AddCors(options =>
             {
                 var frontendURL = Configuration.GetValue<string>("frontend_url");
@@ -75,33 +76,34 @@ namespace peliculasAPI
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opciones =>
-                    opciones.TokenValidationParameters = new TokenValidationParameters {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(Configuration["llavejwt"])),
-                        ClockSkew = TimeSpan.Zero
-                    });
+                opciones.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(Configuration["llavejwt"])),
+                    ClockSkew = TimeSpan.Zero
+                });
+
+            services.AddAuthorization(opciones =>
+            {
+                opciones.AddPolicy("EsAdmin", policy => policy.RequireClaim("role", "admin"));
+            });
+
             services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(FiltroDeExcepcion));
                 options.Filters.Add(typeof(ParsearBadRequests));
             }).ConfigureApiBehaviorOptions(BehaviorBadRequests.Parsear);
 
-
-            
-
-           
-
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "peliculasAPI", Version = "v1" });
-            });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PeliculasAPI", Version = "v1" });
+            }); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
